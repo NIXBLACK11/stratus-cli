@@ -2,7 +2,7 @@ package main
 
 import (
 	"os"
-	"stratus/commands"
+	"stratus-cli/commands"
 
 	"github.com/fatih/color"
 )
