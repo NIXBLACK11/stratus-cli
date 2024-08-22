@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"stratus-cli/commands"
 
@@ -18,17 +17,7 @@ func main() {
 		} else if command == "projects" {
 			color.Blue("projects list")
 		} else if command == "login" {
-			color.Cyan("Enter the email and password:\n")
-			var email, password string
-			fmt.Printf("Email: ")
-			fmt.Scanf("%s", &email)
-			fmt.Printf("Password: ")
-			fmt.Scanf("%s", &password)
-			success := commands.Login(email, password)
-			if success==false {
-				fmt.Println("Invalid email or password")
-			}
-			fmt.Println("Logged in")
+			commands.Login()
 		} else if command == "signup" {
 			color.Cyan("Enter the email and password:\n")
 		} else {
