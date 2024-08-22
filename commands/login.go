@@ -3,6 +3,7 @@ package commands
 import (
 	"fmt"
 	"stratus-cli/api"
+	"stratus-cli/utils"
 
 	"github.com/fatih/color"
 )
@@ -12,16 +13,27 @@ func Login() {
 	var email, password string
 	color.Cyan("Email: ")
 	fmt.Scanf("%s", &email)
-	color.Cyan("Password: ")
-	fmt.Scanf("%s", &password)
-	
-	success, err := api.Login(email, password)
-	if err!=nil {
-		color.Cyan(err.Error())
+
+	validEmail, err := utils.EmailVerify(email)
+	if validEmail==false {
+		color.Red(err.Error())
 		return
 	}
 
-	if success==true {
-		color.Green("Successfully logged in!!")
+	color.Cyan("Password: ")
+	fmt.Scanf("%s", &password)
+	
+	token, err := api.Login(email, password)
+	if err!=nil {
+		color.Red(err.Error())
+		return
 	}
+
+	err = utils.StoreToken(token)
+	if err != nil {
+		color.Red(err.Error())
+		return
+	}
+
+	color.Green("Successfully loggen in!!")
 }

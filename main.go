@@ -19,7 +19,7 @@ func main() {
 		} else if command == "login" {
 			commands.Login()
 		} else if command == "signup" {
-			color.Cyan("Enter the email and password:\n")
+			commands.Signup()
 		} else {
 			color.Cyan(commands.Help())
 		}
