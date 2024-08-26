@@ -19,20 +19,22 @@ type ProjectDetailsResponse struct {
 	AlertTriggers []AlertTrigger `json:"AlertTriggers"`
 }
 
-func ProjectDetails(email string, token string, projectName string) (*ProjectDetailsResponse, error) {
+func ProjectDetails(email string, token string, projectName string) (ProjectDetailsResponse, error) {
+	var emptyDetails ProjectDetailsResponse
+
 	if email == "" || token == "" || projectName == "" {
-		return nil, errors.New("empty email, token, or project name")
+		return emptyDetails, errors.New("empty email, token, or project name")
 	}
 
 	URL := os.Getenv("URL")
 	if URL == "" {
-		return nil, errors.New("error in loading env")
+		return emptyDetails, errors.New("error in loading env")
 	}
 	URL += email + "/" + projectName
 
 	req, err := http.NewRequest("GET", URL, nil)
 	if err != nil {
-		return nil, err
+		return emptyDetails, err
 	}
 
 	req.Header.Set("Authorization", token)
@@ -41,21 +43,20 @@ func ProjectDetails(email string, token string, projectName string) (*ProjectDet
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, err
+		return emptyDetails, err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, errors.New("bad response")
+		return emptyDetails, errors.New("bad response")
 	}
 
-	// Read the response body and unmarshal it into the ProjectDetailsResponse struct
 	var details struct {
 		ProjectDetails ProjectDetailsResponse `json:"projectdetails"`
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&details); err != nil {
-		return nil, err
+		return emptyDetails, err
 	}
 
-	return &details.ProjectDetails, nil
+	return details.ProjectDetails, nil
 }
