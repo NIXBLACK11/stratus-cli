@@ -27,7 +27,7 @@ func main() {
 		command := os.Args[1]
 		if command == "project" {
 			projectName := os.Args[2]
-			color.Green("url list" + projectName)
+			commands.ProjectDetails(projectName)
 		} else if command == "delete" {
 			projectName := os.Args[2]
 			commands.ProjectDelete(projectName)
