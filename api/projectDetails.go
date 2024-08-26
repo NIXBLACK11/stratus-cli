@@ -3,24 +3,13 @@ package api
 import (
 	"encoding/json"
 	"errors"
+	"stratus-cli/types"
 	"net/http"
 	"os"
 )
 
-type AlertTrigger struct {
-	SiteName  string `json:"sitename"`
-	SiteURL   string `json:"siteurl"`
-	AlertType string `json:"alerttype"`
-}
-
-type ProjectDetailsResponse struct {
-	Username     string        `json:"username"`
-	ProjectName  string        `json:"projectname"`
-	AlertTriggers []AlertTrigger `json:"AlertTriggers"`
-}
-
-func ProjectDetails(email string, token string, projectName string) (ProjectDetailsResponse, error) {
-	var emptyDetails ProjectDetailsResponse
+func ProjectDetails(email string, token string, projectName string) (types.ProjectDetailsResponse, error) {
+	var emptyDetails types.ProjectDetailsResponse
 
 	if email == "" || token == "" || projectName == "" {
 		return emptyDetails, errors.New("empty email, token, or project name")
@@ -52,7 +41,7 @@ func ProjectDetails(email string, token string, projectName string) (ProjectDeta
 	}
 
 	var details struct {
-		ProjectDetails ProjectDetailsResponse `json:"projectdetails"`
+		ProjectDetails types.ProjectDetailsResponse `json:"projectdetails"`
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&details); err != nil {
 		return emptyDetails, err

@@ -31,6 +31,9 @@ func main() {
 		} else if command == "delete" {
 			projectName := os.Args[2]
 			commands.ProjectDelete(projectName)
+		} else if command == "add" { 
+			projectFile := os.Args[2]
+			commands.AddProject(projectFile)
 		} else {
 			color.Cyan(commands.Help())
 		}
