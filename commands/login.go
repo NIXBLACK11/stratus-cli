@@ -35,5 +35,11 @@ func Login() {
 		return
 	}
 
-	color.Green("Successfully loggen in!!")
+	err = utils.StoreEmail(email)
+	if err != nil {
+		color.Red(err.Error())
+		return
+	}
+
+	color.Green("Successfully logged in!!")
 }

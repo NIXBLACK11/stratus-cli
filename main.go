@@ -15,7 +15,7 @@ func main() {
 		if command == "help" {
 			color.Cyan(commands.Help())
 		} else if command == "projects" {
-			color.Blue("projects list")
+			commands.Projects()
 		} else if command == "login" {
 			commands.Login()
 		} else if command == "signup" {
@@ -30,7 +30,7 @@ func main() {
 			color.Green("url list" + projectName)
 		} else if command == "delete" {
 			projectName := os.Args[2]
-			color.Green("deleted" + projectName)
+			commands.ProjectDelete(projectName)
 		} else {
 			color.Cyan(commands.Help())
 		}
