@@ -31,11 +31,18 @@ func ExtractInfo(projectFile string, username string) ( []byte, error ) {
 		} else if strings.HasPrefix(line, "SITEURL") {
 			currentTrigger.SiteURL = strings.TrimSpace(strings.TrimPrefix(line, "SITEURL"))
 		} else if strings.HasPrefix(line, "ALERTTYPE") {
-			currentTrigger.AlertType = strings.TrimSpace(strings.TrimPrefix(line, "ALERTTYPE"))
+			alertTypeStr := strings.TrimSpace(strings.TrimPrefix(line, "ALERTTYPE"))
+			// Split the alert types by comma and trim spaces around each alert type
+			alertTypes := strings.Split(alertTypeStr, ",")
+			for i := range alertTypes {
+				alertTypes[i] = strings.TrimSpace(alertTypes[i])
+			}
+			currentTrigger.AlertType = alertTypes
 			alertTriggers = append(alertTriggers, currentTrigger)
 			currentTrigger = types.AlertTrigger{}
 		}
 	}
+	
 
 	if err := scanner.Err(); err != nil {
 		fmt.Println("Error reading file:", err)
