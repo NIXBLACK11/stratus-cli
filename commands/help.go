@@ -7,7 +7,7 @@ func Help() string {
 	signup         Create a new account
 	projects       List all projects in your account.
 	project        View and manage urls monitored in a specific project.
-	delete         Delete the prject specified`
-
+	delete         Delete the prject specified
+	add            Add details to an existing or create a new project`
 	return message
 }

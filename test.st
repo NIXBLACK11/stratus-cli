@@ -1,4 +1,5 @@
 PROJECTNAME newProject
+TRIES 3
 
 SITENAME test site 11
 SITEURL https://www.yurr.com

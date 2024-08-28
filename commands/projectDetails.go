@@ -30,6 +30,7 @@ func ProjectDetails(projectName string) {
 	color.Green("Project Details:")
 	color.Green(fmt.Sprintf("Username: %s\n", details.Username))
 	color.Green(fmt.Sprintf("Project Name: %s\n", details.ProjectName))
+	color.Green(fmt.Sprintf("Max email tries: %s\n", details.Tries))
 	color.Green("Alert Triggers:")
 	for i, trigger := range details.AlertTriggers {
 		color.Green(fmt.Sprintf("  %d. Site Name: %s\n", i+1, trigger.SiteName))

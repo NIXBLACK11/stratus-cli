@@ -4,8 +4,9 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	"stratus-cli/types"
 	"os"
+	"stratus-cli/types"
+	"strconv"
 	"strings"
 )
 
@@ -18,6 +19,7 @@ func ExtractInfo(projectFile string, username string) ( []byte, error ) {
 	defer file.Close()
 
 	var projectName string
+	var tries int
 	var alertTriggers []types.AlertTrigger
 	var currentTrigger types.AlertTrigger
 
@@ -26,7 +28,10 @@ func ExtractInfo(projectFile string, username string) ( []byte, error ) {
 		line := strings.TrimSpace(scanner.Text())
 		if strings.HasPrefix(line, "PROJECTNAME") {
 			projectName = strings.TrimSpace(strings.TrimPrefix(line, "PROJECTNAME"))
-		} else if strings.HasPrefix(line, "SITENAME") {
+		} else if strings.HasPrefix(line, "TRIES") {
+			triesStr := strings.TrimSpace(strings.TrimPrefix(line, "TRIES"))
+			tries, _ = strconv.Atoi(triesStr)
+		}else if strings.HasPrefix(line, "SITENAME") {
 			currentTrigger.SiteName = strings.TrimSpace(strings.TrimPrefix(line, "SITENAME"))
 		} else if strings.HasPrefix(line, "SITEURL") {
 			currentTrigger.SiteURL = strings.TrimSpace(strings.TrimPrefix(line, "SITEURL"))
@@ -52,6 +57,7 @@ func ExtractInfo(projectFile string, username string) ( []byte, error ) {
 	projectDetails := types.ProjectDetailsResponse{
 		Username:     username,
 		ProjectName:  projectName,
+		Tries: tries,
 		AlertTriggers: alertTriggers,
 	}
 

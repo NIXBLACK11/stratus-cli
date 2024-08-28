@@ -7,7 +7,8 @@ type AlertTrigger struct {
 }
 
 type ProjectDetailsResponse struct {
-	Username     string        `json:"username"`
-	ProjectName  string        `json:"projectname"`
+	Username      string         `json:"username"`
+	ProjectName   string         `json:"projectname"`
+	Tries         int            `json:"tries"`
 	AlertTriggers []AlertTrigger `json:"alertTriggers"`
 }
