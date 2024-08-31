@@ -6,7 +6,7 @@ import (
 	"errors"
 	"io"
 	"net/http"
-	"os"
+	"stratus-cli/constants"
 )
 
 func Login(email string, password string) (string, error) {
@@ -14,7 +14,7 @@ func Login(email string, password string) (string, error) {
 		return "", errors.New("empty username or password")
 	}
 
-	URL := os.Getenv("URL")
+	URL := constants.URL
 	if URL == "" {
 		return "", errors.New("error in loading env")
 	}

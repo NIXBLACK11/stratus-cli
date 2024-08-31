@@ -3,9 +3,9 @@ package api
 import (
 	"encoding/json"
 	"errors"
-	"stratus-cli/types"
 	"net/http"
-	"os"
+	"stratus-cli/constants"
+	"stratus-cli/types"
 )
 
 func ProjectDetails(email string, token string, projectName string) (types.ProjectDetailsResponse, error) {
@@ -15,7 +15,7 @@ func ProjectDetails(email string, token string, projectName string) (types.Proje
 		return emptyDetails, errors.New("empty email, token, or project name")
 	}
 
-	URL := os.Getenv("URL")
+	URL := constants.URL
 	if URL == "" {
 		return emptyDetails, errors.New("error in loading env")
 	}

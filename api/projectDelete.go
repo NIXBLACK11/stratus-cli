@@ -3,7 +3,7 @@ package api
 import (
 	"errors"
 	"net/http"
-	"os"
+	"stratus-cli/constants"
 )
 
 func ProjectDelete(email string, projectName string, token string) error {
@@ -11,7 +11,7 @@ func ProjectDelete(email string, projectName string, token string) error {
 		return errors.New("empty email, project name, or token")
 	}
 
-	URL := os.Getenv("URL")
+	URL := constants.URL
 	if URL == "" {
 		return errors.New("error in loading env")
 	}

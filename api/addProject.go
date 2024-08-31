@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"net/http"
-	"os"
+	"stratus-cli/constants"
 )
 
 func AddProject(email string, token string, jsonData []byte) error {
@@ -12,7 +12,7 @@ func AddProject(email string, token string, jsonData []byte) error {
 		return errors.New("empty email or token")
 	}
 
-	URL := os.Getenv("URL")
+	URL := constants.URL
 	if URL == "" {
 		return errors.New("error in loading env")
 	}

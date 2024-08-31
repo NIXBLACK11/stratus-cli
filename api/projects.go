@@ -5,7 +5,7 @@ import (
 	"errors"
 	"io"
 	"net/http"
-	"os"
+	"stratus-cli/constants"
 )
 
 type ProjectsResponse struct {
@@ -17,7 +17,7 @@ func Projects(email string, token string) ([]string, error) {
 		return nil, errors.New("empty email or token")
 	}
 
-	URL := os.Getenv("URL")
+	URL := constants.URL
 	if URL == "" {
 		return nil, errors.New("error in loading env")
 	}

@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
-	"os"
+	"stratus-cli/constants"
 )
 
 func Signup(email string, password string) (bool, error) {
@@ -13,7 +13,7 @@ func Signup(email string, password string) (bool, error) {
 		return false, errors.New("Empty username or password")
 	}
 
-	URL := os.Getenv("URL")
+	URL := constants.URL
 	if URL=="" {
 		return false, errors.New("Error in loading env")
 	}
